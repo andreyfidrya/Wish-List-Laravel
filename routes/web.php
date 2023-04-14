@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ShoppingList;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,4 +44,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Productstobuy'], function(){
 
 
 Route::get('/search', [ShoppingList::class, 'search'])->name('search');
+
+Route::controller(SearchController::class)->group(function(){
+    Route::get('autocomplete', 'autocomplete')->name('autocomplete');
+});
+
 

@@ -8,6 +8,10 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.104.2">
     <title>Wish-List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/dashboard/">
     
@@ -84,9 +88,37 @@
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+  
   <form action="{{ route('search') }}" method="GET">
-  <input class="form-control form-control-dark w-100 rounded-0 border-0" name="search" type="text" placeholder="Поиск" aria-label="Search">
+  <input class="form-control form-control-dark w-100 rounded-0 border-0" name="search" id="search" type="text" placeholder="Поиск" aria-label="Search">
   </form>
+
+  <script type="text/javascript">
+    var path = "{{ route('autocomplete') }}";
+  
+    $( "#search" ).autocomplete({
+        source: function( request, response ) {
+          $.ajax({
+            url: path,
+            type: 'GET',
+            dataType: "json",
+            data: {
+               search: request.term
+            },
+            success: function( data ) {
+               response( data );
+            }
+          });
+        },
+        select: function (event, ui) {
+           $('#search').val(ui.item.label);
+           console.log(ui.item); 
+           return false;
+        }
+      });
+  
+</script>
+
   <div class="navbar-nav">
       <div class="nav-item text-nowrap">
       <a class="nav-link px-3" href="#">Выход</a>
