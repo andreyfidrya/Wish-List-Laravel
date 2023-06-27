@@ -34,6 +34,11 @@ class ShoppingList extends Controller
         ->orWhere('store', 'LIKE', "%{$search}%")
         ->get();
         return view('search',compact('products'));
-    }    
+    }
+    
+    public function trash(){
+        $purchasedproducts = ProductList::onlyTrashed()->get();
+        return view('trash', compact('purchasedproducts'));
+    }
 
 }

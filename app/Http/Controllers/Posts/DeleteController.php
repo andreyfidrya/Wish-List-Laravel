@@ -13,7 +13,7 @@ class DeleteController extends Controller
     public function __invoke($id)
     {
         $product = ProductList::find($id);
-        unlink(public_path('images').'/'.$product->productimage);
+        //unlink(public_path('images').'/'.$product->productimage);
         $product->delete();
         return back()->with('product_deleted', 'Товар был удален успешно!');
     }    

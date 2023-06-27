@@ -9,7 +9,8 @@
     <title>All Products</title> 
     
     <a href="/add-product" class="btn btn-success">Добавить товар</a>
-    <a href="/shopping-cart" class="btn btn-success" style="float:right">Корзина</a>
+    <a href="/trash" class="btn btn-danger" style="float:right">Куплено</a>
+    <a href="/shopping-cart" class="btn btn-info" style="float:right">Корзина</a> 
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     @if(Session::has('product_deleted'))

@@ -49,4 +49,6 @@ Route::controller(SearchController::class)->group(function(){
     Route::get('autocomplete', 'autocomplete')->name('autocomplete');
 });
 
+Route::get('/trash', [ShoppingList::class, 'trash'])->name('trash');
+
 
