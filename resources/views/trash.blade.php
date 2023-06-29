@@ -58,15 +58,26 @@
       <td>{{$purchasedproduct->price}}</td>
       
       <td>
-      <a href="" class="btn btn-danger" onClick="return confirm('Вы действительно хотите удалить товар: {{$purchasedproduct->productname}} навсегда?')">Удалить навсегда</a>
-      <a href="" class="btn btn-success">Восстановить</a>
-      </td>
+      <form method="post" onClick="return confirm('Вы действительно хотите удалить товар: {{$purchasedproduct->productname}} навсегда?')" action="{{ route('removeforever', [ $purchasedproduct->id ]) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger">Удалить навсегда</button>
+      </form>
+      <form method="post" action="{{ route('restore', [ $purchasedproduct->id ]) }}">
+                        @csrf
+                        @method('PUT')
+                        <button class="btn btn-success">Восстановить</button>
+      </form>
+      </td>      
       
     </tr>
         @endforeach
   </tbody>
 </table>
-          
+Общая сумма купленных товаров: <strong>{{$sum}} USD</strong><br>
+Количество купленных товаров: <strong>{{$productnumber}}</strong><br>
+Самый дешевый купленный товар: <strong>{{$cheapestproduct->productname}}</strong> и его цена: <strong>{{$cheapestproduct->price}} USD</strong><br>
+Самый дорогой купленный товар: <strong>{{$mostexpensiveproduct->productname}}</strong> и его цена: <strong>{{$mostexpensiveproduct->price}} USD</strong>          
 @endsection                   
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>

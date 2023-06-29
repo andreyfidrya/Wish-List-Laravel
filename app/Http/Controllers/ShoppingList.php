@@ -38,7 +38,29 @@ class ShoppingList extends Controller
     
     public function trash(){
         $purchasedproducts = ProductList::onlyTrashed()->get();
-        return view('trash', compact('purchasedproducts'));
+        
+        $sum = ProductList::onlyTrashed()
+        ->sum('price');
+        $productnumber = ProductList::onlyTrashed()
+        ->count();
+        $cheapestproduct = ProductList::onlyTrashed()
+        ->orderBy('price', 'asc')
+        ->first();
+        $mostexpensiveproduct = ProductList::onlyTrashed()
+        ->orderBy('price', 'desc')
+        ->first();  
+        
+        return view('trash', compact('purchasedproducts', 'sum', 'productnumber', 'cheapestproduct', 'mostexpensiveproduct'));
+    }
+
+    public function restore($id){
+        $restoredproducts = ProductList::onlyTrashed()->findOrFail($id);
+        $restoredproducts->restore();
+        return redirect()->route('trash');
+    }
+
+    public function destroyForever($id){
+        ProductList::onlyTrashed()->findOrFail($id)->forceDelete();        
     }
 
 }

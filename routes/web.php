@@ -51,4 +51,8 @@ Route::controller(SearchController::class)->group(function(){
 
 Route::get('/trash', [ShoppingList::class, 'trash'])->name('trash');
 
+Route::delete('/{id}/destroyforever', [ShoppingList::class, 'destroyForever'])->name('removeforever');
+Route::put('/{id}/restore', [ShoppingList::class, 'restore'])->name('restore');
+
+
 
