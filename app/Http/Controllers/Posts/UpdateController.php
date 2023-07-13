@@ -12,17 +12,27 @@ class UpdateController extends Controller
 {
     public function __invoke(StoreProductRequest $request)
     {
+        
+        
         $productname = $request->productname;
         $category = $request->category;
         $store = $request->store;
         $price = $request->price;
         $shoppingcart = false;
+        
+        if($request->file('file') !== null)
+        {
         $image = $request->file('file');
         $imageName = time().'.'.$image->extension();
         $image->move(public_path('images'),$imageName);
+        }
         
         $product = ProductList::find($request->id);
+        if($request->file('file') !== null) 
+        {
         $product->productimage = $imageName;
+        }
+        
         $product->productname = $productname;
         $product->category = $category;
         $product->store = $store;
